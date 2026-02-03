@@ -1,0 +1,823 @@
+{
+  "info": {
+    "_postman_id": "70b70bfc-eb81-4d75-b713-f39ea7420fc9",
+    "name": "Automation.Exercise.Api",
+    "description": "Collection de testes para AutomationExercise",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40633478"
+  },
+  "item": [
+    {
+      "name": "Teste 1 - Produtos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "",
+              "pm.test('Lista de produtos', () => {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.products).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/productsList",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "productsList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 2 - Produtos (método inválido)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Mensagem de erro correta\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"This request method is not supported\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/productsList",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "productsList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 3 - Marcas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Lista de marcas retornada\", () => {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.brands).to.be.an(\"array\");",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/brandsList",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "brandsList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 4 - Marcas (inválido)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Mensagem de erro correta\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"This request method is not supported\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/brandsList",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "brandsList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 5 - Buscar produto",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Lista de produtos retornada\", () => {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.products).to.be.an(\"array\");",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "search_product",
+              "value": "top",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/searchProduct",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "searchProduct"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 6 - Sem parâmetro",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Mensagem de erro\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"search_product parameter is missing\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/searchProduct",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "searchProduct"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 7 - Login válido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Usuário existe\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"User exists\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "{{email_login}}",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/verifyLogin",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "verifyLogin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 8 - Login sem email",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Mensagem de erro correta\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"Bad request, email or password parameter is missing in POST request.\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/verifyLogin",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "verifyLogin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 9 - DELETE login (inválido)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Mensagem de erro correta\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"This request method is not supported.\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "teste@teste.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/verifyLogin",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "verifyLogin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 10 - Login inválido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Usuário não encontrado\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"User not found\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "invalido@teste.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "errado",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/verifyLogin",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "verifyLogin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 11 - Criar conta",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Usuário criado\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"User created\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "Maria",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "value": "{{email_criado}}",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "text"
+            },
+            {
+              "key": "title",
+              "value": "Mrs",
+              "type": "text"
+            },
+            {
+              "key": "birth_date",
+              "value": "10",
+              "type": "text"
+            },
+            {
+              "key": "birth_month",
+              "value": "5",
+              "type": "text"
+            },
+            {
+              "key": "birth_year",
+              "value": "1995",
+              "type": "text"
+            },
+            {
+              "key": "firstname",
+              "value": "Maria",
+              "type": "text"
+            },
+            {
+              "key": "lastname",
+              "value": "Silva",
+              "type": "text"
+            },
+            {
+              "key": "company",
+              "value": "Teste",
+              "type": "text",
+              "uuid": "0eade29d-8a82-4807-8760-c757d55e171a"
+            },
+            {
+              "key": "address1",
+              "value": "Rua Mirassol",
+              "type": "text",
+              "uuid": "8826de3a-4268-48f2-9929-c40ec682693d"
+            },
+            {
+              "key": "address2",
+              "value": "Rua Jales",
+              "type": "text",
+              "uuid": "081ecaed-cfb5-4901-ac81-c6643a3f8f2b"
+            },
+            {
+              "key": "country",
+              "value": "Brazil",
+              "type": "text"
+            },
+            {
+              "key": "zipcode",
+              "value": "15871111",
+              "type": "text",
+              "uuid": "1c197973-e009-451b-a79e-bc32b1640e0b"
+            },
+            {
+              "key": "state",
+              "value": "MG",
+              "type": "text",
+              "uuid": "d7d5352d-5b58-497e-9990-91043aa3ede5"
+            },
+            {
+              "key": "city",
+              "value": "Sao Paulo",
+              "type": "text"
+            },
+            {
+              "key": "mobile_number",
+              "value": "11999999999",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/createAccount",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "createAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste 12 - Delete Account",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Conta deletada\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"Account deleted!\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "{{email_criado}}",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/deleteAccount",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "deleteAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste  13 - Atualizar conta do usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem de usuário atualizado\", () => {\r",
+              "    pm.expect(pm.response.text()).to.include(\"User updated!\");\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "Maria",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "value": "{{email_login}}",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "text"
+            },
+            {
+              "key": "title",
+              "value": "Mrs",
+              "type": "text"
+            },
+            {
+              "key": "birth_date",
+              "value": "10",
+              "type": "text"
+            },
+            {
+              "key": "birth_month",
+              "value": "5",
+              "type": "text"
+            },
+            {
+              "key": "birth_year",
+              "value": "1995",
+              "type": "text"
+            },
+            {
+              "key": "firstname",
+              "value": "Maria",
+              "type": "text"
+            },
+            {
+              "key": "lastname",
+              "value": "Silva",
+              "type": "text"
+            },
+            {
+              "key": "company",
+              "value": "Teste",
+              "type": "text"
+            },
+            {
+              "key": "address1",
+              "value": "Rua Mirassol",
+              "type": "text"
+            },
+            {
+              "key": "address2",
+              "value": "Rua Jales",
+              "type": "text"
+            },
+            {
+              "key": "country",
+              "value": "Brazil",
+              "type": "text"
+            },
+            {
+              "key": "zipcode",
+              "value": "15871111",
+              "type": "text"
+            },
+            {
+              "key": "state",
+              "value": "MG",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "value": "Sao Paulo",
+              "type": "text"
+            },
+            {
+              "key": "mobile_number",
+              "value": "11999999955",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/updateAccount",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "updateAccount"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste  14 - Buscar usuário por email",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Retorna dados do usuário\", () => {\r",
+              "    const json = pm.response.json();\r",
+              "    pm.expect(json.user).to.exist;\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/getUserDetailByEmail?email={{email_login}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "getUserDetailByEmail"
+          ],
+          "query": [
+            {
+              "key": "email",
+              "value": "{{email_login}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
